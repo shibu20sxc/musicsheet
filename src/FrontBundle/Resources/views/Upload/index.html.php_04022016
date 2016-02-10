@@ -1,0 +1,524 @@
+<?php $view->extend('FrontBundle::upload_layout.html.php') ?>
+<?php $view['slots']->set('title', 'SheetMusic || Upload Music') ?>
+<?php $view['slots']->start('body') ?>
+<!-- Body Part Start-->
+<div class="body_wrap">
+    <div class="col-lg-11 col-sm-11 fix_width11 less_rt rt_border">
+        <div class="col-lg-3 col-sm-3" style="border-right:1px solid #000; margin:15px 0px;">
+            <div class="tab_left_panel nano" id="upload_lt" ng-controller="songsController">
+                <ul class="nano-content">
+                    <?php
+                    $rand_ad_ty = rand(1, 2);
+                    $rand_ad_on = rand(1, 2);
+                    if ($rand_ad_on == 1) {
+                        if ($rand_ad_ty == 1) {
+                            echo '<li>
+                            	<img src="' . $view['assets']->getUrl('uploads/advertisements/') . $advertisement1[0]['advertisements'] . '" alt="Advertisment" class="img-responsive double_add" />
+                            </li>';
+                        } else {
+                            echo '<li>
+                            	<img src="' . $view['assets']->getUrl('uploads/advertisements/') . $advertisement2[0]['advertisements'] . '" alt="Advertisment" class="img-responsive singel_add" />
+                            </li>';
+                        }
+                    }
+                    ?>
+                    <li ng-repeat="result in results| filter:songSearch">
+                        <div class="songs">{{result.song}}</div>
+                        <div class="artist">by {{result.artist}}</div>
+                        <div class="liclose"><a href="javascript:void(0);" onclick = "return removeDiv(this);"><img src="<?php echo $view['assets']->getUrl('SheetMusic/front/images/close_btn.png'); ?>" alt="Close" /></a></div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 col-sm-9">
+            <div class="nano" id="upload">
+                <div class="upload_wrap" id = "upload_advertisement">
+                    <img src="<?php echo $view['assets']->getUrl('uploads/advertisements/') . $advertisement3[0]['advertisements']; ?>" alt="Advertisment" class="img-responsive" />
+                </div>
+                <div class="upload_wrap" id = "upload_circle" style = "display: none; ">
+                    <div id="circle_bg">
+                        <div class="cat_wrap">
+                            <div class="upload_music">
+                                <a href="javascript:void(0)" class = "upload_circle_music_button"><img src="<?php echo $view['assets']->getUrl('SheetMusic/front/images/upload_music.png'); ?>" alt="music" class="img-responsive browse_music" /></a>
+                                <div class="heading"><a href="javascript:void(0);" class = "upload_circle_music_button" class="browse_music">sheet music</a></div>
+                            </div>
+                            <div class="upload_video" style="border:0px solid red;">
+                                <div class="heading pull-left"><a href="javascript:void(0)"  class="browse_video upload_circle_video_button">video</a></div>                                
+                                <a href="javascript:void(0)" class="vclose"><span class="upload_close" id="upload_close">Close</span></a>
+
+                                <a href="javascript:void(0)" class = "upload_circle_video_button"><img src="<?php echo $view['assets']->getUrl('SheetMusic/front/images/video_upload.png'); ?>" alt="Video" class="img-responsive pull-right browse_video" id="browse_video" /></a>
+
+                            </div>
+                            <div class="publish">
+                                <div class="heading"><a href="javascript:void(0)" id="publish">Publish</a></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="upload_info">
+                                <div class="heading pull-left"><a href="javascript:void(0)" class="fill_info upload_circle_info_button">info</a></div>
+                                <a href="javascript:void(0)" class = "upload_circle_info_button"><img src="<?php echo $view['assets']->getUrl('SheetMusic/front/images/info_upload.png'); ?>" alt="Info" class="img-responsive pull-right fill_info" id="" /></a>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="upload_category">
+                                <div class="heading"><a href="javascript:void(0)" class="category upload_circle_category_button">categorize</a></div>
+                                <a href="javascript:void(0)" class = "upload_circle_category_button"><img src="<?php echo $view['assets']->getUrl('SheetMusic/front/images/category_upload.png'); ?>" alt="Category" class="img-responsive category" id="" /></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Upload music start form html-->
+                <div class="upload_form_wrap" name="musicfileinfo" id = "upload_music" style = "display: none;">
+                    <form class="form-horizontal nano-content" action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Upload Music Sheet:</label>
+                            <div class="col-sm-9">
+                                <input type="file" id="msheet" name="msheet[]" multiple>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Upload Song:</label>
+                            <div class="col-sm-9">
+                                <input type="file" id="usong" name="usong">
+                            </div>
+                        </div>
+                        <input type="button" class="done" value="Done" id = "submit_music_button"/>
+                    </form>
+                    <img  src="<?php echo $view['assets']->getUrl('SheetMusic/front/images/ajax-loader-2.gif'); ?>" style="display: none;" id="ajax_loader"/>
+                </div>
+                <!--Upload  music End form html-->
+                <!--Upload  Video Start form html-->
+                <div class="upload_form_wrap" id = "upload_video" style = "display: none;">
+                    <form class="form-horizontal nano-content" action="" method="">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Video Link:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="vlink" id="vlink" placeholder="Paste your youtube video link">
+                            </div>
+                        </div>
+                        <input type="button" class="done" value="Done" id = "submit_video_button"/>
+                    </form>
+                </div>
+                <!--Upload  Video End form html-->
+                <!--Upload  info Start form html-->
+                <div class="upload_form_wrap" id = "upload_info" style = "display: none;">
+                    <form class="form-horizontal nano-content" action="" method="">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Song Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="song" id="song" placeholder="Song Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Artist Name:</label>
+                            <div class="col-sm-10">
+                                <textarea cols="5" rows="2" style="resize:none;" id = "artist" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Album Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="album" id="album" placeholder="Album Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Username:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" disabled="disabled" name="username" value="<?php echo $user_name; ?>" id="username" placeholder="Username">
+                                <div class="search_result" style="display:none;">
+                                    <ul>
+                                        <li>Username</li>
+                                        <li>Username</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Contributor:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="contributor" id="contributor" placeholder="Contributor">
+                            </div>
+                        </div>
+                        <input type="button" class="done" value="Done"  id = "submit_info_button"/>
+                    </form>
+                </div>
+                <!--Upload  info End form html-->
+                <!--Upload  Category Start form html-->
+                <div class="upload_form_wrap" id = "upload_category" style = "display: none;" ng-controller="instrumentFamily">
+                    <form class="form-horizontal nano-content" action="" method="">
+                        <div class="form-group" >
+                            <label class="col-sm-2 control-label">Instrument Family:</label>
+                            <div class="col-sm-10">                               
+                                <select name="instrument_family" id="instrument_family" class="form-control" ng-model="instrument_family">
+                                    <option value="">--Select Instrument Family--</option>
+                                    <option value="{{instrumentFamily.id}}" ng-repeat="instrumentFamily in instrumentFamilies">{{instrumentFamily.name}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Instrument:</label>
+                            <div class="col-sm-10">                                
+                                <select name="instrument" id="instrument" class="form-control">
+                                    <option value="">--Select Instrument --</option>
+                                    <option value="{{instrument.id}}" ng-repeat="instrument in instruments| filter:{fid:instrument_family}">{{instrument.name}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="button" class="done" value="Done"  id = "submit_category_button"/>
+                    </form>
+                </div>
+                <!--Upload  Category End form html-->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-lg-1 col-sm-1 fix_width1 mob_display">
+        &nbsp;
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- Body Part End-->
+<div class="notification_wrap" id="notify"  style="display:none;" ng-controller="dashboardSubs" style="background: #fff;">
+    <ul>
+        <li ng-repeat="subscription in subscriptions">
+            <a href="#"><span class="name">{{subscription.name}}</span> <span class="upoload">uploaded</span> {{subscription.details}}</a>
+        </li>
+
+    </ul>
+    <input type="button" value="Exit" class="exit" />
+    <input type = "hidden" id = "upload_status" value = "0">
+</div>
+
+<audio id="audio"></audio>
+<audio class="audioDemo" controls preload="none" id="audioDemo" style="display:none" src=""> </audio>
+<script type="text/javascript">
+    app.controller('dashboardSubs', function ($scope) {
+        $scope.subscriptions = <?php echo $subscription_details; ?>;
+
+    });
+    app.controller('songsController', function ($scope) {
+        $scope.results = <?php echo $songs; ?>;
+    });
+    app.controller('instrumentFamily', function ($scope) {
+        $scope.instrumentFamilies = <?php echo $instrumentFamilies; ?>;
+        $scope.instruments = <?php echo $instruments; ?>;
+    });
+
+
+    function removeDiv(ele) {
+        $(ele).parent().parent().remove();
+        return false;
+    }
+    var music_duration;
+    $(document).ready(function () {
+        var fileUploadData;
+        var video_link;
+        var song;
+        var artist;
+        var album;
+        var contributor;
+        var instrument;
+        var instrument_family;
+        
+
+
+        /* for Auto fit Scroll for songlist & audiolist */
+        $("#upload").css('height', ($(window).height() - 85));
+        $("#upload_lt").css('height', ($(window).height() - 135));
+
+
+        var circle = new ProgressBar.Circle('#circle_bg', {
+            color: 'gray',
+            trailColor: '#fcb03f',
+            strokeWidth: .5,
+        });
+        $(".browse_music").click(function () {
+
+            circle.animate(0.18);  // Number from 0.0 to 1.0
+        });
+        $(".browse_video").click(function () {
+
+            circle.animate(0.32);  // Number from 0.0 to 1.0
+        });
+        $(".fill_info").click(function () {
+
+            circle.animate(0.5);  // Number from 0.0 to 1.0
+        });
+        $(".category").click(function () {
+
+            circle.animate(0.75);  // Number from 0.0 to 1.0
+        });
+
+        $("#publish").click(function () {
+
+            circle.animate(1.0);  // Number from 0.0 to 1.0
+        });
+
+
+        $('.vclose').click(function () {
+            $("#browse_video").toggle(300); //upload_close
+            if ($("#upload_close").html() == "Close")
+            {
+                $("#upload_close").html("Open");
+                circle.animate(0.32);
+            }
+            else
+            {
+                $("#upload_close").html("Close");
+            }
+            $('#browse_video').css('float', 'right');
+        });
+
+        $('#footer_upload_btn').click(function () {
+            $("#upload_advertisement").hide('slow');
+            $("#upload_circle").css('display', 'block');
+        });
+
+        $('.upload_circle_music_button').click(function () {
+            $("#upload_circle").hide('slow');
+            $("#upload_music").css('display', 'block');
+            $("#upload_info").css('display', 'none');
+            $("#upload_category").css('display', 'none');
+            $("#upload_video").css('display', 'none');
+        });
+
+        $('.upload_circle_video_button').click(function () {
+            $("#upload_circle").hide('slow');
+            $("#upload_video").css('display', 'block');
+            $("#upload_music").css('display', 'none');
+            $("#upload_info").css('display', 'none');
+            $("#upload_category").css('display', 'none');
+        });
+
+        $('.upload_circle_info_button').click(function () {
+            $("#upload_circle").hide('slow');
+            $("#upload_info").css('display', 'block');
+            $("#upload_music").css('display', 'none');
+            $("#upload_category").css('display', 'none');
+            $("#upload_video").css('display', 'none');
+        });
+
+        $('.upload_circle_category_button').click(function () {
+            $("#upload_circle").hide('slow');
+            $("#upload_category").css('display', 'block');
+            $("#upload_info").css('display', 'none');
+            $("#upload_music").css('display', 'none');
+            $("#upload_video").css('display', 'none');
+        });
+
+
+        $('#submit_video_button').click(function () {
+            video_link = $("#vlink").val();
+            $("#upload_circle").show('slow');
+            $("#upload_video").css('display', 'none');
+
+        });
+
+        $('#submit_info_button').click(function () {
+            song = $("#song").val();
+            artist = $("#artist").val();
+            album = $("#album").val();
+            contributor = $("#contributor").val();
+            $("#upload_circle").show('slow');
+            $("#upload_info").css('display', 'none');
+
+        });
+
+        $('#submit_category_button').click(function () {
+            instrument = $("#instrument").val();
+            instrument_family = $("#instrument_family").val();
+            $("#upload_circle").show('slow');
+            $("#upload_category").css('display', 'none');
+        });
+
+        $('#publish').click(function () {
+            
+            $.ajax({
+                url: "<?php echo $view['router']->generate('_ajax_publish'); ?>",
+                type: "POST",
+                data: {
+                    fileUploadData: fileUploadData,
+                    video_link: video_link,
+                    song: song,
+                    artist: artist,
+                    album: album,
+                    contributor: contributor,
+                    instrument: instrument,
+                    instrument_family: instrument_family,
+                    music_duration: music_duration
+                    //music_duration:'4:05' //Static music duration
+                },
+                success: function (data) {
+                    if (data == 'success') {
+                        $("#song").val("");
+                        $("#artist").val("");
+                        $("#album").val("");
+                        $("#contributor").val("");
+                        $("#instrument").val("");
+                        $("#instrument_family").val("");
+                        $("#vlink").val("");
+                        $("#msheet").val("");
+                        $("#usong").val(""); 
+                        window.location.href = '<?php echo $view['router']->generate('_site_upload'); ?>'+'?uploadStatus=success';
+                        //$("#myModal").modal('show');
+                    }
+                }
+            });
+            return false;
+        });
+
+
+        var msheet;
+        var usong;
+       
+        $('#msheet').on('change', function (e) {
+            msheet = e.target.files;
+        });
+        $('#usong').on('change', function (e) {
+            usong = e.target.files;
+        });
+        var checkImageTypeStatus = 0;
+        var checkAudioTypeStatus = 0;
+
+        $('#submit_music_button').click(function (event) {
+            checkImageTypeStatus = 1;
+            event.stopPropagation(); // Stop stuff happening
+            event.preventDefault(); // Totally stop stuff happening
+            var data = new FormData();
+            var nextkey = 0;
+            if(typeof msheet != 'undefined'){
+                
+            $.each(msheet, function (key, value)
+            {
+                data.append(key, value);
+                var str = value.type;
+                //alert(data);
+                if (str.substring(0, 5) != 'image') {
+                    checkImageTypeStatus = 0;
+
+                }
+
+                nextkey++;
+
+            });
+            }
+            nextkey += 5;            
+            $.each(usong, function (key, value)
+            {
+                data.append(nextkey, value);
+                var str = value.type;
+                if (str.substring(0, 5) == 'audio') {
+                    checkAudioTypeStatus = 1;
+                }
+                nextkey++;
+            });
+
+            if (checkImageTypeStatus * checkAudioTypeStatus) {
+                $.ajax({
+                    url: "<?php echo $view['router']->generate('_ajax_music_insert'); ?>",
+                    type: "POST",
+                    data: data,
+                    cache: false,
+                    processData: false, // Don't process the files
+                    contentType: false,
+                    beforeSend: function () {
+                        $('#ajax_loader').show();
+                    },
+                    complete: function () {
+                        $('#ajax_loader').hide();
+                    },
+                    success: function (data) {
+                        //alert(data);
+                        fileUploadData = data;
+                        $("#upload_circle").show('slow');
+                        $("#upload_music").css('display', 'none');
+                        $("#upload_status").val(data);
+                        //alert('hi4');
+                        var parsed = JSON.parse(data);
+
+                        var arr = [];
+
+                        for (var x in parsed) {
+                            arr.push(parsed[x]);
+
+                        }
+                        arr.reverse();
+                        //alert('hi3');
+                       
+                    }
+                });
+                return false;
+
+            } else {
+                var message = '';
+                if (!checkImageTypeStatus) {
+                    var message = message + 'Music Sheet Upload Error:  Invalid Sheet type Please upload image.';
+                }
+                if (!checkAudioTypeStatus) {
+                    var message = message + 'Song Upload Error:  Invalid Song type Please upload mp3 song format. ';
+                }
+
+                bootbox.dialog({
+                    message: message,
+                }
+                );
+            }
+        });
+    });
+    
+    
+    
+ var objectUrl;
+$("#audio").on("canplaythrough", function(e){
+   var total_seconds = e.currentTarget.duration;   
+   var  second = Math.floor(total_seconds % 60);
+        if (second < 10)
+        {
+
+            second = '0' + second;
+        }
+      
+       music_duration = Math.floor(total_seconds / 60) + ':' + second;
+   
+});
+
+$("#usong").change(function(e){
+    var file = e.currentTarget.files[0];
+  
+   
+    objectUrl = URL.createObjectURL(file);
+    
+    $("#audio").prop("src", objectUrl);
+});
+
+    
+    
+    
+    
+</script>
+<?php if($uploadStatus!=''){  ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#myModal").modal('show');
+    });
+</script>
+<?php } ?>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Success Message</h4>
+            </div>
+            <div class="modal-body">
+                Your Songs has been successfully published...
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php $view['slots']->stop() ?>
+

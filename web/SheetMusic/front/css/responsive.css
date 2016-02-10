@@ -1,0 +1,165 @@
+
+@media screen and (min-width: 1024px)
+{
+	.col-lg-9.left_part {
+    width: 70%;
+}
+.col-lg-3.right_part {
+    width: 30%;
+}
+.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 620px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+
+
+@media screen and (min-width: 1280px)
+{
+.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 660px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+
+@media screen and (min-width: 1366px)
+{
+.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 613px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+img {
+    margin-bottom: 15px;
+    margin-top: 57px;
+    width: 20%;
+}
+}
+
+
+@media screen and (min-width: 1440px)
+{
+	.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 760px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+@media screen and (min-width: 1600px)
+{
+	.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 768px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+@media screen and (min-width: 1680px)
+{
+	.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 900px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+
+
+
+
+
+@media screen and (min-width: 1920px)
+{
+	.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 940px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+
+@media screen and (min-height: 768px)
+{
+.footer_error {
+    border-top: 5px solid #fcb041;
+    float: left;
+    height: 110px;
+    width: 100%;
+}
+}
+
+
+@media screen and (min-height: 800px)
+{
+.footer_error {
+    border-top: 5px solid #fcb041;
+    float: left;
+    height: 100px;
+    width: 100%;
+}
+}
+
+
+@media screen and (min-height: 900px)
+{
+.footer_error {
+    border-top: 5px solid #fcb041;
+    float: left;
+    height: 97px;
+    width: 100%;
+}
+}
+
+@media screen and (min-height: 1024px)
+{
+.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 890px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+
+@media screen and (min-height: 1080px)
+{
+.col-lg-10.left_main {
+    border-right: 4px solid #fcb041;
+    float: left;
+    height: 930px;
+    margin-bottom: -2px;
+    margin-top: -1px;
+    text-align: center;
+    width: 95%;
+}
+}
+

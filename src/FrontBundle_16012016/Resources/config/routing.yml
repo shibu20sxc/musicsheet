@@ -1,0 +1,94 @@
+_front_login:
+    path:     /siteLogin
+    defaults: { _controller: FrontBundle:Login:index }
+
+_front_home_page:
+    path:     /
+    defaults: { _controller: FrontBundle:Login:index }
+    
+_front_dashboard:
+    path:     /siteDashboard
+    defaults: { _controller: FrontBundle:Dashboard:index }
+    
+_site_logout:
+    path:     /logout
+    defaults: { _controller: FrontBundle:Login:logout }
+    
+_site_register:
+    path:     /register
+    defaults: { _controller: FrontBundle:Login:register }
+    
+_user_forget_password:
+    path:     /userForgetPassword
+    defaults: { _controller: FrontBundle:Login:userForgetPassword }
+    
+_user_forget_password_change:
+    path:     /userForgetPasswordChange
+    defaults: { _controller: FrontBundle:Login:userForgetPasswordChange }
+ 
+ajax_user_login_check:
+    path:     /ajaxUserEmailCheck
+    defaults: { _controller: FrontBundle:Login:ajaxUserEmailCheck }
+    
+_site_upload:
+    path:     /uploadMusic
+    defaults: { _controller: FrontBundle:Upload:index } 
+_ajax_music_insert:
+   path:     /ajaxUploadMusic
+   defaults: { _controller: FrontBundle:Upload:ajaxUploadMusic }
+       
+_ajax_publish:
+    path:     /ajaxPublish
+    defaults: { _controller: FrontBundle:Upload:ajaxPublish }
+_fornt_play_music:
+    path:     /playSongs
+    defaults: { _controller: FrontBundle:Upload:playSongs }
+    
+_fornt_sheet_music_details:
+    path:     /sheetMusicDetails/{id}/{family}/{songs}
+    defaults: { _controller: FrontBundle:Upload:sheetMusicDetails ,family:null,songs:null}
+    requirements:
+        family: -?\d+
+        songs: -?\w+
+        
+_fornt_play_video:
+    path:     /playVideo/{id}/{family}/{songs}
+    defaults: { _controller: FrontBundle:Upload:playVideo ,family:null,songs:null}
+    requirements:
+        family: -?\d+
+        songs: -?\w+
+        
+_ajax_search_family_sound:
+    path:     /ajaxSearchFamilySound
+    defaults: { _controller: FrontBundle:Upload:ajaxSearchFamilySound }
+_fornt_saved:
+    path:     /saved
+    defaults: { _controller: FrontBundle:Upload:savedSongs }
+_fornt_music_details_report:
+    path:     /musicInfo/{id}
+    defaults: { _controller: FrontBundle:Upload:musicInfo }
+    
+_fornt_music_details_subscribe:
+    path:     /ajaxMusicSubscribe
+    defaults: { _controller: FrontBundle:Upload:ajaxMusicSubscribe }
+  
+_ajax_music_details_comment_post:
+    path:     /ajaxMusicCommentPost
+    defaults: { _controller: FrontBundle:Upload:ajaxMusicCommentPost }
+    
+_ajax_music_details_report_post:
+    path:     /ajaxMusicReportPost
+    defaults: { _controller: FrontBundle:Upload:ajaxMusicReportPost }
+_fornt_advertisement:
+    path:     /advertisement
+    defaults: { _controller: FrontBundle:Advertisement:index }
+
+_youtube_video_duration:
+    path:     /getYoutubeDuration
+    defaults: { _controller: FrontBundle:Upload:getYoutubeDuration }
+_save_songs_details:
+    path:     /saveSongsDetails
+    defaults: { _controller: FrontBundle:Upload:saveSongsDetails }
+_user_profile_view:
+    path:   /userProfileView/{id}
+    defaults: { _controller: FrontBundle:Upload:userProfileView}

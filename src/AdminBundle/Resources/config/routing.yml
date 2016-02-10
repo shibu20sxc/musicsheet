@@ -1,0 +1,56 @@
+   
+_admin_login:
+    path:     /login
+    defaults: { _controller: AdminBundle:Login:login }
+    
+_dahboard_index:
+    path:     /dashboard
+    defaults: { _controller: AdminBundle:Dashboard:index }
+    
+_admin_logout:
+    path:     /logout
+    defaults: { _controller: AdminBundle:Login:logout }
+
+_view_music_family:
+    path:     /musicFamily
+    defaults: { _controller: AdminBundle:MusicFamily:index }
+
+_add_family:
+    path:     /addFamily
+    defaults: { _controller: AdminBundle:MusicFamily:addFamily }
+
+_update_family:
+    path:     /updateFamily/{id}
+    defaults: { _controller: AdminBundle:MusicFamily:updateFamily }
+
+_view_family_sound:
+    path:     /viewFamilySound
+    defaults: { _controller: AdminBundle:FamilySound:index }
+
+_add_sound:
+    path:     /addSound
+    defaults: { _controller: AdminBundle:FamilySound:addSound }
+
+_update_sound:
+    path:     /updateSound/{id}
+    defaults: { _controller: AdminBundle:FamilySound:updateSound }
+
+_status_update:
+    path:     /statusUpdate
+    defaults: { _controller: AdminBundle:Common:statusUpdate }
+
+_delete_update:
+    path:     /deleteUpdate/{id}/{table}/{route}
+    defaults: { _controller: AdminBundle:Common:deleteUpdate }
+    
+view_advertisemets:
+    path:     /viewAdvertisementsAction
+    defaults: { _controller: AdminBundle:Advertisements:index }
+
+add_advertisements:
+    path:     /addAdvertisements
+    defaults: { _controller: AdminBundle:Advertisements:addAdvertisements }
+
+update_advertisements:
+    path:     /updateAdvertisements/{id}
+    defaults: { _controller: AdminBundle:Advertisements:updateAdvertisements }

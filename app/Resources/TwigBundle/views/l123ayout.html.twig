@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="{{ _charset }}" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!--<title>{% block title %}{% endblock %}</title> -->
+         <title>Sheet Music || 404 Page</title>
+        <link href="{{ absolute_url(asset('SheetMusic/front/css/bootstrap.min.css')) }}" rel="stylesheet" />
+        <link href="{{ absolute_url(asset('SheetMusic/front/css/custom.css')) }}" rel="stylesheet" />
+        <link href="{{ absolute_url(asset('SheetMusic/front/css/responsive.css')) }}" rel="stylesheet" />
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="top_part">
+
+        <div class="col-lg-9 left_part">
+            <h3>Aerl Nodus</h3>
+        </div>
+        <div class="col-lg-3 right_part">
+        </div>
+    </div>
+
+
+    <div class="main_body">
+        <div class="container-fluid">
+            <div class="col-lg-10 left_main">
+                <img src="{{ absolute_url(asset('SheetMusic/front/images/404error.png'))}}" alt="404error"/>
+                <div class="some_link">
+                    <div class="main_text">
+                        <h2>an error has occured</h2>
+                        <h4>-<a href="{{ app.request.uri }}" >refresh</a></h4>
+                        <h4><a href="{{app.request.getBaseURL()}}">-Click here to go back to home page</a></h4>
+                        <h4>-wait a while</h4>
+                        <h6>-Send us a message at greybubble@gmail.com </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 right_main">
+            </div>
+        </div>
+
+
+        <div class="footer_error">
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+</body>
+</html>
